@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: db
+    environment:
+      POSTGRES_USER: ecny
+      POSTGRES_PASSWORD: asupersecretpassword
+      POSTGRES_DB: ecny
+    ports:
+      - "95432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  node:
+    image: node:20
+    container_name: node
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    ports:
+      - "93000:3000"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
