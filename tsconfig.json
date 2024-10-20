@@ -1,5 +1,15 @@
 {
-  "extends": "./tsconfig.base.json",
-  "include": ["src"],
-  "exclude": ["**/__tests__/**"]
+  "compilerOptions": {
+    "lib": [
+      "es2023"
+    ],
+    "target": "ES2019",
+    "module": "CommonJS",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "moduleResolution": "node"
+  }
 }

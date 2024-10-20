@@ -1,0 +1,6 @@
+db:
+  user: ecny
+  password: asupersecretpassword
+  host: localhost
+  port: 35432
+  database: ecny

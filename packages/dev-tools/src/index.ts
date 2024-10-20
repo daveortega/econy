@@ -1,0 +1,1 @@
+export { nameTime } from './example'
