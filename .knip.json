@@ -1,0 +1,4 @@
+{
+  "ignore": ["**/*.d.ts", "**/dist/**", "**/coverage/**"],
+  "ignoreWorkspaces": ["@mod/dev-toolbelt"]
+}

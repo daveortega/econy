@@ -1,18 +1,28 @@
 {
   "name": "@ecny/migrations",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "@types/knex": "^0.16.1",
-    "@types/node": "^18.0.0"
+    "@ecny/dev-tools": "*"
   },
   "dependencies": {
+    "config": "^3.3.12",
+    "js-yaml": "^4.1.0",
     "knex": "^3.1.0",
     "pg": "^8.13.0"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc -b .",
+    "code:review": "code-review.sh",
+    "code:format": "code-review.sh --fix",
+    "migrate": "NODE_CONFIG_DIR=../../../config knex --knexfile src/knexfile.ts",
+    "migrate:make": "yarn migrate migrate:make",
+    "migrate:up": "yarn migrate --debug migrate:up",
+    "migrate:down": "yarn migrate --debug migrate:down",
+    "test:unit": "unit-testing.sh",
+    "test:coverage": "coverage.sh",
+    "unused:artifacts": "unused-artifacts.sh"
   }
 }
