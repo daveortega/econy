@@ -1,0 +1,37 @@
+{
+  "name": "@ecny/masker",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "dependencies": {
+    "config": "^3.3.9",
+    "js-yaml": "^4.1.0",
+    "maskdata": "^1.2.6"
+  },
+  "devDependencies": {
+    "@ecny/dev-tools": "*",
+    "@types/js-yaml": "^4.0.9"
+  },
+  "files": [
+    ".masker.yaml"
+  ],
+  "scripts": {
+    "build": "tsc -b .",
+    "start": "echo",
+    "code:review": "code-review.sh",
+    "code:format": "code-review.sh --fix",
+    "test:unit": "unit-testing.sh",
+    "test:coverage": "coverage.sh",
+    "unused:artifacts": "unused-artifacts.sh"
+  },
+  "ts-standard": {
+    "ignore": [
+      "dist",
+      "src/**/*.js"
+    ]
+  },
+  "engines": {
+    "node": ">20.0.0"
+  }
+}

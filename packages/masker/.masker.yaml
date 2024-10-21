@@ -1,0 +1,13 @@
+- fields:
+  - name
+  - first name
+  - middle name
+  - last name
+  masker: "*"
+  endCharacters: 4
+  startCharacters: 2
+- fields:
+  - email
+  masker: "*"
+  endCharacters: 2
+  startCharacters: 3

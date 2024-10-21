@@ -13,6 +13,9 @@ yarn-error.log*
 # Dependency directories
 jspm_packages/
 
+#jest coverage
+coverage
+
 # TypeScript
 *.tsbuildinfo
 
