@@ -15,3 +15,4 @@ export async function down (knex: Knex): Promise<void> {
   await knex.schema.dropTableIfExists('users');
   await knex.raw('DROP EXTENSION IF EXISTS "uuid-ossp"');
 }
+

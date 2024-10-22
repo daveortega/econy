@@ -1,7 +1,7 @@
 import type { Knex } from 'knex'
 import config from 'config'
 
-const dbConfig: Knex.ConnectionConfig = config.get('db')
+const dbConfig: Knex.ConnectionConfig = config.get('db.migration')
 
 const configuration: { [key: string]: Knex.Config } = {
   development: {
@@ -50,7 +50,6 @@ const configuration: { [key: string]: Knex.Config } = {
       tableName: 'knex_migrations'
     }
   }
-
 }
 
 module.exports = configuration

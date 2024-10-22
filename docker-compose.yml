@@ -5,7 +5,7 @@ services:
     image: postgres:16
     container_name: ecny-db
     environment:
-      POSTGRES_USER: ecny
+      POSTGRES_USER: ecny_admin
       POSTGRES_PASSWORD: asupersecretpassword
       POSTGRES_DB: ecny
     ports:

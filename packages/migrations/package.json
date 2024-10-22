@@ -20,7 +20,9 @@
     "migrate": "NODE_CONFIG_DIR=../../../config knex --knexfile src/knexfile.ts",
     "migrate:make": "yarn migrate migrate:make",
     "migrate:up": "yarn migrate --debug migrate:up",
+    "migrate:latest": "yarn migrate --debug migrate:latest",
     "migrate:down": "yarn migrate --debug migrate:down",
+    "migrate:rollback": "yarn migrate --debug migrate:rollback",
     "test:unit": "unit-testing.sh",
     "test:coverage": "coverage.sh",
     "unused:artifacts": "unused-artifacts.sh"
