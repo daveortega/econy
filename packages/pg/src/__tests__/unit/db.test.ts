@@ -13,6 +13,11 @@ afterEach(async () => {
   await db.rollbackTransaction(client);
 });
 
+// Close the database pool after all tests
+afterAll(async () => {
+  await db.closePool();
+});
+
 describe('Database CRUD operations with rollback', () => {
   it('should create and read a record within a transaction', async () => {
     const newUser = await db.create('users', { name: 'john doe' }, client);

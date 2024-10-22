@@ -1,5 +1,5 @@
 db:
-  user: ecny
+  user: ecny_app
   password: asupersecretpassword
   host: localhost
   port: 35432

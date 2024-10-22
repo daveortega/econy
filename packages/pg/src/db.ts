@@ -116,4 +116,8 @@ export const db = {
     const query = `DELETE FROM ${table} WHERE ${whereClause}`;
     await this.query(query, values, client);
   },
+
+  async closePool(): Promise<void> {
+    await pool.end();
+  }
 };
