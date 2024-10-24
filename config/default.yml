@@ -6,7 +6,7 @@ db:
     port: 35432
     database: ecny
   migration:
-    user: ecny_admin
+    user: ecny_dba
     password: asupersecretpassword
     host: localhost
     port: 35432

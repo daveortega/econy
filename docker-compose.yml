@@ -5,13 +5,14 @@ services:
     image: postgres:16
     container_name: ecny-db
     environment:
-      POSTGRES_USER: ecny_admin
+      POSTGRES_USER: ecny_dba
       POSTGRES_PASSWORD: asupersecretpassword
       POSTGRES_DB: ecny
     ports:
       - "35432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./docker/db/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
 
   node:
     image: node:20

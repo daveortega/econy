@@ -1,6 +1,13 @@
 db:
-  user: ecny_app
-  password: asupersecretpassword
-  host: localhost
-  port: 35432
-  database: ecny
+  application:
+    user: ecny_test_app
+    password: asupersecretpassword
+    host: localhost
+    port: 35432
+    database: ecny_test
+  migration:
+    user: ecny_dba
+    password: asupersecretpassword
+    host: localhost
+    port: 35432
+    database: ecny_test

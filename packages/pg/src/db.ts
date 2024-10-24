@@ -10,7 +10,7 @@ interface DbConfig extends PoolConfig {
 }
 
 // Get the database config from the config package
-const dbConfig: DbConfig = config.get('db');
+const dbConfig: DbConfig = config.get('db.application');
 
 // Create a new PostgreSQL connection pool
 const pool = new Pool(dbConfig);
