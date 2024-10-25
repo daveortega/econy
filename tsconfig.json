@@ -11,6 +11,6 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
     "moduleResolution": "node",
-    "typeRoots": ["./node_modules/@types", "./types"]
-  }
+  },
+  "exclude": ["**/__tests__/**"]
 }

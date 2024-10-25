@@ -5,10 +5,15 @@ all: start
 ##### Clean section #####
 
 .PHONY: clean
-clean: db-clean docker-down
+clean: db-clean-local docker-down
 
 .PHONY: db-clean
 db-clean:
+	@echo "Removing migrations in main database"
+	yarn workspace @ecny/migrations run migrate:rollback
+
+.PHONY: db-clean-local
+db-clean-local:
 	@echo "Removing migrations in test database for local development"
 	yarn workspace @ecny/migrations run migrate:test:rollback
 
@@ -20,10 +25,10 @@ docker-down:
 ##### Test enablers section #####
 
 .PHONY: test
-test: db-setup db-test
+test: db-migrate-local db-test
 
-.PHONY: db-setup
-db-setup:
+.PHONY: db-migrate-local
+db-migrate-local:
 	@echo "Running migrations in test database for local development"
 	yarn workspace @ecny/migrations run migrate:test:latest
 
@@ -35,7 +40,12 @@ db-test:
 ##### Start section #####
 
 .PHONY: start
-start: docker-start
+start: docker-start db-migrate
+
+.PHONY: db-migrate
+db-migrate:
+	@echo "Running migrations in main database"
+	yarn workspace @ecny/migrations run migrate:latest
 
 .PHONY: docker-start
 docker-start:

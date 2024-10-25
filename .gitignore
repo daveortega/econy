@@ -42,3 +42,6 @@ coverage
 
 # VS Code directories and files
 .vscode/
+
+# types from db generation
+dbconfig.json
