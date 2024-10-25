@@ -4,8 +4,12 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "private": true,
+  "bin": {
+    "generate-types.sh": "./bin/generate-types.sh"
+  },
   "devDependencies": {
     "@ecny/dev-tools": "*",
+    "@rmp135/sql-ts": "^2.1.0",
     "@types/pg": "^8.11.10"
   },
   "dependencies": {
@@ -14,6 +18,7 @@
   "scripts": {
     "build": "tsc -b .",
     "code:review": "code-review.sh",
+    "generate:types": "LEVELS_TO_ROOT=../../ generate-types.sh",
     "test:unit": "unit-testing.sh",
     "test:coverage": "coverage.sh",
     "unused:artifacts": "unused-artifacts.sh"
