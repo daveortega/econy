@@ -11,6 +11,7 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
     "moduleResolution": "node",
+    "declaration": true
   },
   "exclude": ["**/__tests__/**"]
 }

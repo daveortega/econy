@@ -1,18 +1,23 @@
 {
-  "name": "@ecny/pg",
+  "name": "@ecny/model",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "private": true,
+  "bin": {
+    "generate-types.sh": "./bin/generate-types.sh"
+  },
   "devDependencies": {
     "@ecny/dev-tools": "*",
-    "@types/pg": "^8.11.10"
+    "@rmp135/sql-ts": "^2.1.0"
   },
   "dependencies": {
+    "@ecny/pg": "*",
     "pg": "^8.13.0"
   },
   "scripts": {
-    "build": "tsc -b .",
+    "build": "yarn generate:types && yarn build:tsc",
+    "build:tsc": "tsc -b .",
     "code:review": "code-review.sh",
     "generate:types": "LEVELS_TO_ROOT=../../ generate-types.sh",
     "test:unit": "unit-testing.sh",
