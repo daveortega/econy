@@ -1,5 +1,8 @@
 import { Pool, PoolClient, PoolConfig, QueryResultRow } from 'pg';
 import config from 'config';
+import { logger } from '@ecny/logger';
+
+const myLogger = logger('db operations');
 
 interface DbConfig extends PoolConfig {
   user: string;
@@ -34,7 +37,7 @@ export const db = {
       if (!client) queryClient.release();
       return result.rows;
     } catch (err) {
-      console.error('Database query error', err);
+      myLogger.error('Database query error', err);
       if (!client) queryClient.release();
       throw err;
     }
