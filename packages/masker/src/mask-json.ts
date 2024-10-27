@@ -8,9 +8,9 @@ export function mask(input: string | undefined): object {
 
   if (Array.isArray(maskerConfig) && maskerConfig.length > 0) {
     return maskJson(input, new Map());
+  } else {
+    return { "masker_error": "config_error"};
   }
-
-  return { "MaskerError": "unknown_error" };
 }
 
 function maskJson(
@@ -20,7 +20,7 @@ function maskJson(
     string | number | boolean | object | Array<string | object>
   >
 ): object {
-  if (input!) {
+  if (input! && isJsonString(input)) {
     const jsonInput = JSON.parse(input);
     for (const key in jsonInput) {
       const type = whatIsIt(jsonInput[key]);
@@ -35,9 +35,13 @@ function maskJson(
       } else if (type == "string" || type == "number" || type == "boolean") {
         response.set(key, maskStringOrNumberOrBoolean(key, jsonInput[key]));
       } else {
-        throw Error("The attribute type is not supported.");
+        response.set(key, `Attribute type is not supported for ${jsonInput[key]}`);
       }
     }
+    return Object.fromEntries(response);
+  }
+  if (input !== undefined) {
+    response.set("data", input);
   }
   return Object.fromEntries(response);
 }
@@ -145,6 +149,15 @@ function whatIsIt(value: any): string {
   if (Array.isArray(value)) return "array";
   if (value === null) return "null";
   return typeof value;
+}
+
+function isJsonString(str: string): boolean {
+  try {
+    const parsed = JSON.parse(str);
+    return typeof parsed === 'object' && parsed !== null;
+  } catch (e) {
+    return false;
+  }
 }
 
 

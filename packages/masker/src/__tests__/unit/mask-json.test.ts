@@ -35,6 +35,18 @@ jest.mock("../../load-config", () => ({
 }));
 
 describe("Masker module", () => {
+  test("Given a string when calling the masker then the value should be return unmasked", () => {
+    const jsonInput = faker.lorem.words(5);
+
+    const result = mask(JSON.stringify(jsonInput));
+
+    expect(result).toEqual(
+      expect.objectContaining({
+        data: expect.stringContaining(jsonInput),
+      })
+    );
+  });
+
   test("Given an object with a key for which its value has few characters and the attribute is set to be masked when calling the masker then the value should be masked and only the the last and first characters are unmasked", () => {
     const jsonInput = {
       name: faker.string.alpha({ length: { min: 5, max: 5 } }),
@@ -75,7 +87,7 @@ describe("Masker module", () => {
     );
   });
 
-  test("Given an object with a key for which its value is not set to be masked when calling the masker then the value should unmasked", () => {
+  test("Given an object with a key for which its value is not set to be masked when calling the masker then the value should be unmasked", () => {
     const jsonInput = {
       group: "Morning",
     };

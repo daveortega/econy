@@ -2,7 +2,7 @@ import { Setting } from "./types/setting";
 
 const config: Array<Setting> = [
   {
-    fields: ["firstName", "refugee", "lastName", "age"],
+    fields: ["firstName", "refugee", "lastName", "age", "name"],
     masker: "*",
     endCharacters: 3,
     startCharacters: 2,
