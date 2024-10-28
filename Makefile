@@ -81,5 +81,6 @@ db-migrate:
 yarn-build:
 	@echo "Building all workspaces"
 	yarn workspace @ecny/masker run build
+	yarn workspace @ecny/logger run build
 	yarn workspace @ecny/pg run build
 	yarn workspaces run build
