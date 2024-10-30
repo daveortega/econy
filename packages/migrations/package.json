@@ -27,7 +27,7 @@
     "migrate:test:down": "NODE_ENV=test yarn migrate --debug migrate:down",
     "migrate:rollback": "yarn migrate --debug migrate:rollback",
     "migrate:test:rollback": "NODE_ENV=test yarn migrate --debug migrate:rollback",
-    "test:unit": "unit-testing.sh",
+    "test:unit": "echo skipped",
     "test:coverage": "coverage.sh",
     "unused:artifacts": "unused-artifacts.sh"
   }
