@@ -1,0 +1,21 @@
+{
+  "name": "@ecny/service",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "devDependencies": {
+    "@ecny/dev-tools": "*"
+  },
+  "dependencies": {
+    "@ecny/logger": "*",
+    "@ecny/model": "*"
+  },
+  "scripts": {
+    "build": "tsc -b .",
+    "code:review": "code-review.sh",
+    "test:unit": "unit-testing.sh",
+    "test:coverage": "coverage.sh",
+    "unused:artifacts": "unused-artifacts.sh"
+  }
+}

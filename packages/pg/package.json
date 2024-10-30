@@ -1,0 +1,22 @@
+{
+  "name": "@ecny/pg",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "devDependencies": {
+    "@ecny/dev-tools": "*",
+    "@types/pg": "^8.11.10"
+  },
+  "dependencies": {
+    "pg": "^8.13.0"
+  },
+  "scripts": {
+    "build": "tsc -b .",
+    "code:review": "code-review.sh",
+    "generate:types": "LEVELS_TO_ROOT=../../ generate-types.sh",
+    "test:unit": "unit-testing.sh",
+    "test:coverage": "coverage.sh",
+    "unused:artifacts": "unused-artifacts.sh"
+  }
+}

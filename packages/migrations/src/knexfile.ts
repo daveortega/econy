@@ -1,10 +1,25 @@
 import type { Knex } from 'knex'
 import config from 'config'
 
-const dbConfig: Knex.ConnectionConfig = config.get('db')
+const dbConfig: Knex.ConnectionConfig = config.get('db.migration')
 
 const configuration: { [key: string]: Knex.Config } = {
   development: {
+    client: 'postgresql',
+    connection: {
+      ...dbConfig
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations',
+      directory: 'migrations'
+    }
+  },
+
+  test: {
     client: 'postgresql',
     connection: {
       ...dbConfig
@@ -50,7 +65,6 @@ const configuration: { [key: string]: Knex.Config } = {
       tableName: 'knex_migrations'
     }
   }
-
 }
 
 module.exports = configuration

@@ -27,4 +27,23 @@ describe("Logger module", () => {
     myLogger.error({"firstName": "dave"});
   });
 
+  test("Given a debug error and the level error not defined when the logger is created then log error is not logged", async () => {
+    const stream = pinoTest.sink();
+    const myLogger = logger("Testing log", stream);
+    myLogger.debug({"firstName": "dave"});
+    stream.once("data", (data) => {
+      expect(data.app).toEqual('');
+    });
+  });
+
+  test("Given a debug error and the level error is defined when the logger is created then log error is not logged", async () => {
+    const stream = pinoTest.sink();
+    const myLogger = logger("Testing log", stream, "debug");
+    myLogger.debug({"firstName": "dave"});
+    stream.once("data", (data) => {
+      expect(data.app).toEqual({"firstName": "d**e"});
+      expect(data.level).toEqual(20);
+    });
+  });
+
 });
