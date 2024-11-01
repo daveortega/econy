@@ -1,21 +1,25 @@
 {
-  "name": "@ecny/pg",
+  "name": "@ecny/api",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "private": true,
   "devDependencies": {
     "@ecny/dev-tools": "*",
-    "@types/pg": "^8.11.10"
+    "@ecny/pg": "*"
   },
   "dependencies": {
+    "@ecny/logger": "*",
+    "@ecny/service": "*",
     "config": "^3.3.7",
-    "pg": "^8.13.0"
+    "fastify": "^3.15.1",
+    "fastify-plugin": "^3.0.0"
   },
   "scripts": {
     "build": "tsc -b .",
     "code:review": "code-review.sh",
-    "generate:types": "LEVELS_TO_ROOT=../../ generate-types.sh",
+    "dev": "NODE_CONFIG_DIR=../../config ts-node src/index.ts",
+    "start": "node dist/index.js",
     "test:unit": "unit-testing.sh",
     "test:coverage": "coverage.sh",
     "unused:artifacts": "unused-artifacts.sh"
