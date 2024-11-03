@@ -11,8 +11,9 @@
   "dependencies": {
     "@ecny/logger": "*",
     "@ecny/service": "*",
+    "@fastify/jwt": "^8.0.1",
     "config": "^3.3.7",
-    "fastify": "^3.15.1",
+    "fastify": "^4.0.0",
     "fastify-plugin": "^3.0.0"
   },
   "scripts": {

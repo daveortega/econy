@@ -1,10 +1,27 @@
 import Fastify from 'fastify';
 import userRoutes from '../../routes/userRoutes';
+import authRoutes from '../../routes/authRoutes';
+import config from 'config';
+
+const serverConfig = config.get<{ port: number }>('server');
 
 const fastify = Fastify();
 
-beforeAll(() => {
-  fastify.register(userRoutes, { prefix: "/users" });
+let token: string;
+
+beforeAll(async () => {
+  fastify.register(authRoutes, { prefix: "/auth" });
+  fastify.register(userRoutes, { prefix: '/users' });
+  await fastify.listen(serverConfig.port);
+
+  // Get a valid token for authentication
+  const response = await fastify.inject({
+    method: 'POST',
+    url: '/auth/login',
+    payload: { username: 'testuser', password: 'password' },
+  });
+
+  token = response.json().token;
 });
 
 afterAll(() => {
@@ -18,6 +35,9 @@ describe('User Routes Integration Tests', () => {
         method: 'POST',
         url: '/users',
         payload: { name: 'testuser' },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       expect(response.statusCode).toBe(201);

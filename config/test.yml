@@ -11,3 +11,9 @@ db:
     host: localhost
     port: 35432
     database: ecny_test
+
+server:
+  port: 3000
+
+jwt:
+  secret: asecretkey
