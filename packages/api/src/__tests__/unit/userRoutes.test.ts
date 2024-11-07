@@ -1,6 +1,9 @@
 import Fastify from "fastify";
+import authRoutes from '../../routes/authRoutes';
 import userRoutes from "../../routes/userRoutes";
+import authenticate from '../../plugins/authenticate';
 import { userService } from "@ecny/service";
+import fastifyJwt from '@fastify/jwt';
 
 jest.mock("@ecny/service");
 // Mock the logger factory function
@@ -21,10 +24,25 @@ const { __mockLoggerInstance: mockLogger } = jest.requireMock("@ecny/logger");
 
 describe("userRoutes", () => {
   let fastify: ReturnType<typeof Fastify>;
+  let token: string;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     fastify = Fastify();
     fastify.register(userRoutes, { prefix: "/users" });
+
+    // Register auth routes to get a valid token
+    fastify.register(authRoutes, { prefix: '/auth' });
+    
+    await fastify.listen({ port: 0 });
+
+    // Get a valid token for authentication
+    const response = await fastify.inject({
+      method: 'POST',
+      url: '/auth/login',
+      payload: { username: 'testuser', password: 'password' },
+    });
+
+    token = response.json().token;
   });
 
   afterAll(() => {
@@ -44,6 +62,9 @@ describe("userRoutes", () => {
         method: "POST",
         url: "/users",
         payload: user,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       expect(response.statusCode).toBe(201);

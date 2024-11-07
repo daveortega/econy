@@ -5,6 +5,7 @@ import { logger } from '@ecny/logger';
 const log = logger('UserRoutes');
 
 async function userRoutes(fastify: FastifyInstance, options: FastifyPluginOptions) {
+
   fastify.post('/', async (request, reply) => {
     try {
       const user = await userService.createUser(request.body);
