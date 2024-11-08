@@ -1,13 +1,13 @@
 import { logger } from '@ecny/logger';
 import { userModel } from '@ecny/model';
-import { users } from '@ecny/model/dist/generated/types';
+import { types } from '@ecny/model';
 
 const myLogger = logger('UserService');
 
 class UserService {
   async createUser(input: any): Promise<any> {
     try {
-      const user: users = this.castToUser(input);
+      const user: types.users = this.castToUser(input);
       const newUser = await userModel.create(user);
       myLogger.info(`User created: ${JSON.stringify(newUser)}`);
       return newUser;
@@ -30,7 +30,7 @@ class UserService {
 
   async updateUser(id: string, input: any): Promise<any> {
     try {
-      const user: Partial<users> = this.castToUser(input);
+      const user: Partial<types.users> = this.castToUser(input);
       const updatedUser = await userModel.update(id, user);
       myLogger.info(`User updated: ${JSON.stringify(updatedUser)}`);
       return updatedUser;
@@ -62,9 +62,9 @@ class UserService {
     }
   }
 
-  private castToUser(input: any): users {
+  private castToUser(input: any): types.users {
     // Perform necessary validation and transformation here
-    return input as users;
+    return input as types.users;
   }
 }
 

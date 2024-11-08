@@ -17,7 +17,6 @@ describe('authenticate plugin', () => {
   });
 
   it('should add the authenticate method to the Fastify instance', () => {
-    console.log(fastify.authenticate);
     expect(typeof fastify.authenticate).toBe('function');
   });
 
