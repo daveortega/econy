@@ -1,12 +1,13 @@
 import { logger } from '@ecny/logger';
 import { userModel } from '@ecny/model';
-import { users } from '@ecny/model/dist/generated/types';
+import { types } from '@ecny/model';
 
 const myLogger = logger('UserService');
 
 class UserService {
-  async createUser(user: users): Promise<users> {
+  async createUser(input: any): Promise<any> {
     try {
+      const user: types.users = this.castToUser(input);
       const newUser = await userModel.create(user);
       myLogger.info(`User created: ${JSON.stringify(newUser)}`);
       return newUser;
@@ -16,7 +17,7 @@ class UserService {
     }
   }
 
-  async getUserById(id: string): Promise<users | null> {
+  async getUserById(id: string): Promise<any> {
     try {
       const user = await userModel.read(id);
       myLogger.info(`User read: ${JSON.stringify(user)}`);
@@ -27,8 +28,9 @@ class UserService {
     }
   }
 
-  async updateUser(id: string, user: Partial<users>): Promise<users | null> {
+  async updateUser(id: string, input: any): Promise<any> {
     try {
+      const user: Partial<types.users> = this.castToUser(input);
       const updatedUser = await userModel.update(id, user);
       myLogger.info(`User updated: ${JSON.stringify(updatedUser)}`);
       return updatedUser;
@@ -38,17 +40,18 @@ class UserService {
     }
   }
 
-  async deleteUser(id: string): Promise<void> {
+  async deleteUser(id: string): Promise<any> {
     try {
       await userModel.delete(id);
       myLogger.info(`User deleted: ${id}`);
+      return { message: 'User deleted successfully' };
     } catch (error) {
       myLogger.error(`Error deleting user: ${(error as Error).message}`);
       throw error;
     }
   }
 
-  async findUsersByCreatedDate(createdDate: string): Promise<users[]> {
+  async findUsersByCreatedDate(createdDate: string): Promise<any[]> {
     try {
       const users = await userModel.findByCreatedDate(createdDate);
       myLogger.info(`Users found by created date: ${JSON.stringify(users)}`);
@@ -57,6 +60,11 @@ class UserService {
       myLogger.error(`Error finding users by created date: ${(error as Error).message}`);
       throw error;
     }
+  }
+
+  private castToUser(input: any): types.users {
+    // Perform necessary validation and transformation here
+    return input as types.users;
   }
 }
 

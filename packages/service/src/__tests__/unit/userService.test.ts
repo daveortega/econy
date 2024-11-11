@@ -1,4 +1,4 @@
-import userService from '../../userService';
+import userService from '../../services/userService';
 import { userModel } from '@ecny/model';
 import { logger } from '@ecny/logger';
 

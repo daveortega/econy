@@ -4,6 +4,21 @@ import { users } from "../../generated/types";
 
 jest.mock("@ecny/pg");
 
+jest.mock("@ecny/logger", () => {
+  const mockLogger = {
+    info: jest.fn(),
+    error: jest.fn(),
+  };
+
+  return {
+    logger: jest.fn(() => mockLogger),
+    __mockLoggerInstance: mockLogger, // Expose mockLogger for test access
+  };
+});
+
+// Access the exposed mock logger instance for testing
+const { __mockLoggerInstance: mockLogger } = jest.requireMock("@ecny/logger");
+
 describe("userModel", () => {
   let mockClient: any;
 
@@ -56,6 +71,18 @@ describe("userModel", () => {
       expect(db.read).toHaveBeenCalledWith("users", { id: "1" }, mockClient);
       expect(result).toEqual(user);
     });
+
+    it('should handle error when reading a user', async () => {
+      const user = { id: '1', name: 'testuser' };
+      const error = new Error('Read failed');
+      (db.read as jest.Mock).mockRejectedValue(error);
+  
+      await expect(usersModel.read(user.id)).rejects.toThrow(error);
+  
+      expect(db.beginTransaction).toHaveBeenCalled();
+      expect(db.read).toHaveBeenCalledWith('users', { "id": user.id }, mockClient);
+      expect(mockLogger.error).toHaveBeenCalledWith( `Error reading user: ${error}` );
+    });  
   });
 
   it("should return null if user not found", async () => {
@@ -143,5 +170,16 @@ describe("userModel", () => {
       );
       expect(result).toEqual([user]);
     });
+
+    it('should handle error when selecting a user by date', async () => {
+      const error = new Error('Read failed');
+      (mockClient.query as jest.Mock).mockRejectedValue(error);
+  
+      await expect(usersModel.findByCreatedDate("2023-10-01")).rejects.toThrow(error);
+  
+      expect(db.beginTransaction).toHaveBeenCalled();
+      expect(mockClient.query).toHaveBeenCalledWith( "SELECT * FROM users WHERE created_at = $1", ["2023-10-01"]);
+      expect(mockLogger.error).toHaveBeenCalledWith( `Error finding users by created date: ${error}` );
+    }); 
   });
 });
